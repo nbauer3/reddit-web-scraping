@@ -33,6 +33,8 @@ class PostsSpider(scrapy.Spider):
         posts = response.xpath('.//*[@class="_eYtD2XCVieq6emjKBH3m"]')
         i = 0
 
+        # TODO getting index out of range, tired while loop inside for and didnt work.
+        #while loop can be used in place of for loop
         for post in posts:
         	#returns first post in plain text
         	#print response.xpath('//h3/text()').extract_first()
@@ -42,6 +44,9 @@ class PostsSpider(scrapy.Spider):
             upvotes = response.xpath('.//*[@class = "_1rZYMD_4xY3gRcSS3p8ODO"]/text()').extract()[i]
             comments = response.xpath('.//*[@class = "FHCV02u6Cp2zYL0fhQPsO"]/text()').extract()[i]
             postTime = response.xpath('.//*[@class = "_3jOxDPIQ0KaOWpzvSQo-1s"]/text()').extract()[i]
+            postUser = response.xpath('.//*[@class = "_2tbHP6ZydRpjI44J3syuqC  _23wugcdiaj44hdfugIAlnX oQctV4n0yUb0uiHDdGnmE"]/text()').extract()[i]
+
+            #_2tbHP6ZydRpjI44J3syuqC  _23wugcdiaj44hdfugIAlnX oQctV4n0yUb0uiHDdGnmE
             i += 1
 
             print '\n------------------------------------------------------------\n'
@@ -50,6 +55,13 @@ class PostsSpider(scrapy.Spider):
             print 'Upvotes: ' + str(upvotes)
             print 'Comments: ' + str(comments)
             print 'Posted ' + str(postTime)
+            print 'Posted by: ' + str(postUser)
+
+            #doesnt work
+            #yield scrapy.FormRequest('https://www.reddit.com/', method='POST')
+
+        #didnt work to send post request
+        
 
         print '\n\n************************************************************\n'
 
